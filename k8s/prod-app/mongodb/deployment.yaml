@@ -23,9 +23,15 @@ spec:
               mountPath: /data/db
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
-              value: root
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO_INITDB_ROOT_USERNAME
             - name: MONGO_INITDB_ROOT_PASSWORD
-              value: password
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO_INITDB_ROOT_PASSWORD
       volumes:
         - name: mongo-data
           persistentVolumeClaim:
